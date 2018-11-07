@@ -5,15 +5,24 @@ class AppContainer extends Component {
   constructor(props) {
     super(props);
 
-    //store consumer에서 사용하고 싶은 함수는 constructor안에 있어야함
-    this._changeMessage = () => {
-      this.setState({
-        message: this.state.message === "hello" ? "bye" : "hello"
-      });
-    };
     this.state = {
-      message: "hello",
-      changeMessage: this._changeMessage
+      notifications: {
+        "1": {
+          id: 1,
+          text: "something",
+          seen: false
+        },
+        "2": {
+          id: 2,
+          text: "something else",
+          seen: false
+        },
+        "3": {
+          id: 3,
+          text: "something else but different",
+          seen: false
+        }
+      }
     };
   }
   render() {
