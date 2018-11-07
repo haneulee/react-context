@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import NotificationPresenter from "./NotificationPresenter";
+
 class NotificationContainer extends Component {
   static propTypes = {};
   state = {};
@@ -7,4 +8,5 @@ class NotificationContainer extends Component {
     return <NotificationPresenter {...this.props} {...this.state} />;
   }
 }
+
 export default NotificationContainer;

@@ -1,28 +1,50 @@
 import React, { Component } from "react";
 import AppPresenter from "./AppPresenter";
 import Store from "store";
+
 class AppContainer extends Component {
   constructor(props) {
     super(props);
-
+    this._deleteNotification = id => {
+      this.setState(currentState => {
+        const newState = delete currentState.notifications[id];
+        return newState;
+      });
+    };
+    this._seeNotification = id => {
+      this.setState(currentState => {
+        return {
+          ...currentState,
+          notifications: {
+            ...currentState.notifications,
+            [id]: {
+              ...currentState.notifications[id],
+              seen: true
+            }
+          }
+        };
+      });
+    };
     this.state = {
       notifications: {
         "1": {
           id: 1,
-          text: "something",
+          text: "Something",
           seen: false
         },
         "2": {
           id: 2,
-          text: "something else",
+          text: "Something else",
           seen: false
         },
         "3": {
           id: 3,
-          text: "something else but different",
+          text: "Something else but different",
           seen: false
         }
-      }
+      },
+      deleteNotification: this._deleteNotification,
+      seeNotification: this._seeNotification
     };
   }
   render() {
@@ -33,4 +55,5 @@ class AppContainer extends Component {
     );
   }
 }
+
 export default AppContainer;

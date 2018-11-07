@@ -15,9 +15,11 @@ const Notification = styled.div`
   box-sizing: border-box;
   border: 2px solid ${props => (props.seen ? "transparent" : "#f1c40f")};
 `;
+
 const Title = styled.span`
   font-weight: 600;
 `;
+
 const Button = styled.button`
   height: 40px;
   width: 40px;
@@ -49,6 +51,7 @@ const Button = styled.button`
     transform: translateY(1px);
   }
 `;
+
 const NotificationPresenter = ({ id, text, seen }) => (
   <Notification seen={seen}>
     <Flex alignCenter justifyBetween>
@@ -57,22 +60,34 @@ const NotificationPresenter = ({ id, text, seen }) => (
         <Fragment>
           <Store.Consumer>
             {store => (
-              <Button success seen={seen} onClick={store.changeMessage}>
-                <FontAwesome name="check" />
-              </Button>
+              <Fragment>
+                <Button
+                  success
+                  seen={seen}
+                  onClick={() => store.seeNotification(id)}
+                >
+                  <FontAwesome name="check" />
+                </Button>
+                <Button
+                  danger
+                  seen={seen}
+                  onClick={() => store.deleteNotification(id)}
+                >
+                  <FontAwesome name="times" />
+                </Button>
+              </Fragment>
             )}
           </Store.Consumer>
-          <Button danger seen={seen} onClick={() => {}}>
-            <FontAwesome name="times" />
-          </Button>
         </Fragment>
       </FlexItem>
     </Flex>
   </Notification>
 );
+
 NotificationPresenter.propTypes = {
   text: PropTypes.string.isRequired,
   seen: PropTypes.bool.isRequired,
   id: PropTypes.number.isRequired
 };
+
 export default NotificationPresenter;

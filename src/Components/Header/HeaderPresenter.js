@@ -2,12 +2,15 @@ import React from "react";
 import styled from "styled-components";
 import Flex, { FlexItem } from "styled-flex-component";
 import FontAwesome from "react-fontawesome";
+import Store from "store";
+
 const Header = styled.header`
   height: 100px;
   background-color: #ecf0f1;
   padding: 0 40px;
   margin-bottom: 30px;
 `;
+
 const HeaderIcon = styled.span`
   width: 40px;
   height: 40px;
@@ -27,6 +30,7 @@ const HeaderIcon = styled.span`
     box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
   }
 `;
+
 const Number = styled.span`
   height: 30px;
   width: 30px;
@@ -39,6 +43,17 @@ const Number = styled.span`
   left: 25px;
   top: -10px;
 `;
+
+const getUnseen = notifications => {
+  let unseen = [];
+  Object.keys(notifications).map(key => {
+    if (!notifications[key].seen) {
+      return unseen.push(notifications[key]);
+    }
+  });
+  return unseen.length;
+};
+
 const HeaderPresenter = () => (
   <Header>
     <Flex full justifyBetween alignCenter>
@@ -55,11 +70,16 @@ const HeaderPresenter = () => (
           </HeaderIcon>
           <HeaderIcon>
             <FontAwesome name="bell" />
-            <Number>10</Number>
+            <Number>
+              <Store.Consumer>
+                {store => getUnseen(store.notifications)}
+              </Store.Consumer>
+            </Number>
           </HeaderIcon>
         </Flex>
       </FlexItem>
     </Flex>
   </Header>
 );
+
 export default HeaderPresenter;

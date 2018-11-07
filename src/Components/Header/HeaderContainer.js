@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import HeaderPresenter from "./HeaderPresenter";
+
 class HeaderContainer extends Component {
   static propTypes = {};
   state = {};
@@ -7,4 +8,5 @@ class HeaderContainer extends Component {
     return <HeaderPresenter {...this.state} />;
   }
 }
+
 export default HeaderContainer;
